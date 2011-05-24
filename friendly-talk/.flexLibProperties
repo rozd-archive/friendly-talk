@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="org.friendlytalk2.home.HomePM"/>
+    <classEntry path="org.friendlytalk2.talk.TalkPM"/>
+    <classEntry path="org.friendlytalk2.home.events.ConnectEvent"/>
+    <classEntry path="org.friendlytalk2.core.infrastructure.events.ConnectorEvent"/>
+    <classEntry path="org.friendlytalk2.core.infrastructure.Connector"/>
+    <classEntry path="org.friendlytalk2.core.domain.Room"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
