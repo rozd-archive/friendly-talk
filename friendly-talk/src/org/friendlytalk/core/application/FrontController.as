@@ -4,17 +4,17 @@ package org.friendlytalk.core.application
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
 	import flash.media.Camera;
+	/*
 	import flash.media.H264Level;
 	import flash.media.H264Profile;
 	import flash.media.H264VideoStreamSettings;
+	*/
 	import flash.media.Microphone;
 	import flash.media.MicrophoneEnhancedOptions;
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
 	import flash.system.Capabilities;
 	import flash.utils.getDefinitionByName;
-	
-	import mx.collections.IList;
 	
 	import org.friendlytalk.core.domain.Broadcaster;
 	import org.friendlytalk.core.domain.Room;
@@ -82,10 +82,11 @@ package org.friendlytalk.core.application
 				
 				stream.attachCamera(cam);
 				
-				var settings:H264VideoStreamSettings = new H264VideoStreamSettings();
-				settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_2);
-				
-				stream.videoStreamSettings = settings;
+//				code for Flash PLayer 11
+//				var settings:H264VideoStreamSettings = new H264VideoStreamSettings();
+//				settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_2);
+//				
+//				stream.videoStreamSettings = settings;
 			}
 			
 			var mic:Microphone = 
@@ -142,8 +143,6 @@ package org.friendlytalk.core.application
 			}
 			
 			var stream:NetStream = this.connector.getSubscribeNetStream();
-			
-			trace(stream.videoStreamSettings.codec);
 			
 			var broadcaster:Broadcaster = new Broadcaster();
 			broadcaster.name = name;
