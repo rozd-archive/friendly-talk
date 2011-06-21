@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:renderers="org.friendlytalk.core.presentation.renderers.*" xmlns:layouts="org.friendlytalk.core.presentation.layouts.*">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			[Bindable]
+			public var model:TalkPM;
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:DataGroup width="100%" height="100%" dataProvider="{this.model.broadcasters}">
+		<s:layout>
+			<layouts:TileLayoutExt paddingLeft="20" paddingTop="20" paddingRight="20" paddingBottom="20" columnWidth="320" rowHeight="240" />
+		</s:layout>
+		<s:itemRenderer>
+			<fx:Component>
+				<renderers:BroadcastRenderer>
+					<fx:Script>
+						<![CDATA[
+							import flash.filters.BitmapFilterQuality;
+						]]>
+					</fx:Script>
+					<!--
+					<renderers:filters>
+						<s:DropShadowFilter color="0x000000" distance="0" blurX="20" blurY="20" quality="{BitmapFilterQuality.HIGH}" />
+					</renderers:filters>
+					-->
+				</renderers:BroadcastRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+	</s:DataGroup>
+	
+</s:Group>
