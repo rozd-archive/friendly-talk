@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="HomeView"
+		currentState="{this.model.room.connecting ? 'connecting' : 'normal'}">
+	
+	<fx:Script>
+		<![CDATA[
+			import org.friendlytalk.home.HomePM;
+			
+			[Bindable]
+			public var model:HomePM;
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="connecting" />
+	</s:states>
+	
+	<s:Button id="joinButton" includeIn="normal"
+			  width="25%" height="{uint(this.joinButton.width*0.6)}" 
+			  minWidth="120" minHeight="80"
+			  verticalCenter="0" horizontalCenter="0"
+			  label="{this.resourceManager.getString('ft', 'Join')}" 
+			  click="this.model.connect();" />
+	
+	<s:Label includeIn="connecting" text="Connecting..." horizontalCenter="0" verticalCenter="0" />
+</s:View>
