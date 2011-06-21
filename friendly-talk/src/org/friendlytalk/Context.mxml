@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fx:Object xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:application="org.friendlytalk.core.application.*" xmlns:home="org.friendlytalk.home.*" xmlns:talk="org.friendlytalk.talk.*" xmlns:domain="org.friendlytalk.core.domain.*" xmlns:infrastructure="org.friendlytalk.core.infrastructure.*">
+<fx:Object xmlns:fx="http://ns.adobe.com/mxml/2009"
+		   xmlns:application="org.friendlytalk.core.application.*"
+		   xmlns:home="org.friendlytalk.home.*"
+		   xmlns:talk="org.friendlytalk.talk.*"
+		   xmlns:domain="org.friendlytalk.core.domain.*"
+		   xmlns:infrastructure="org.friendlytalk.core.infrastructure.*">
 	
 	<fx:Declarations>
 		
-		<domain:Room id="room" />
+		<domain:Room id="room"/>
 		
-		<application:FrontController id="controller" 
-									 room="{this.room}" 
-									 connector="{this.connector}" />
+		<application:FrontController id="controller" connector="{this.connector}" room="{this.room}"/>
 	
-		<infrastructure:Connector id="connector" />
+		<infrastructure:Connector id="connector"/>
 		
-		<home:HomePM id="homePM" room="{this.room}" connect="this.controller.connect(event);" />
+		<home:HomePM id="homePM" connect="this.controller.connect(event);" room="{this.room}"/>
 		
-		<talk:TalkPM id="talkPM" broadcasters="{this.room.broadcasters}" />
+		<talk:TalkPM id="talkPM" broadcasters="{this.room.broadcasters}"/>
 		
 	</fx:Declarations>
 	
