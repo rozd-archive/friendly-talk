@@ -6,6 +6,10 @@
 		   xmlns:domain="org.friendlytalk.core.domain.*"
 		   xmlns:infrastructure="org.friendlytalk.core.infrastructure.*">
 	
+	<fx:Metadata>
+		[ResourceBundle("ft")]
+	</fx:Metadata>
+	
 	<fx:Declarations>
 		
 		<domain:Room id="room"/>
