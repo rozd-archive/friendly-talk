@@ -9,12 +9,17 @@ package org.friendlytalk.core.presentation.renderers
 	import org.friendlytalk.core.presentation.components.VideoDisplay;
 	
 	import spark.components.IItemRenderer;
+	import spark.components.Label;
 	
 	public class BroadcastRenderer extends UIComponent implements IItemRenderer
 	{
 		public function BroadcastRenderer()
 		{
 			super();
+			
+			this.width = 200;
+			this.height = 100;
+				
 		}
 		
 		//----------------------------------------------------------------------
@@ -24,6 +29,8 @@ package org.friendlytalk.core.presentation.renderers
 		//----------------------------------------------------------------------
 		
 		private var videoDisplay:VideoDisplay;
+		
+		private var labelDisplay:Label;
 		
 		//----------------------------------------------------------------------
 		//
@@ -127,6 +134,12 @@ package org.friendlytalk.core.presentation.renderers
 				this.videoDisplay = new VideoDisplay();
 				this.addChild(this.videoDisplay);
 			}
+			
+			if (!this.labelDisplay)
+			{
+				this.labelDisplay = new Label();
+				this.addChild(this.labelDisplay);
+			}
 		}
 		
 		//----------------------------------------------------------------------
@@ -138,6 +151,13 @@ package org.friendlytalk.core.presentation.renderers
 		override protected function updateDisplayList(w:Number, h:Number):void
 		{
 			super.updateDisplayList(w, h);
+			trace(w, h, visible, includeInLayout, x, y);
+			
+			this.graphics.beginFill(0xFF0000);
+			this.graphics.drawRect(0, 0, w, h);
+			this.graphics.clear();
+			
+			this.labelDisplay.text = this.data.toString();
 			
 			if (!this.videoDisplay)
 				return;
@@ -152,6 +172,8 @@ package org.friendlytalk.core.presentation.renderers
 			
 			this.setElementPosition(this.videoDisplay, paddingLeft, paddingTop);
 			this.setElementSize(this.videoDisplay, viewWidth, viewHeight);
+			
+			
 		}
 		
 		//--------------------------------------------------------------------------
