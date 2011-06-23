@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="TalkView" xmlns:renderers="org.friendlytalk.core.presentation.renderers.*">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:renderers="org.friendlytalk.core.presentation.renderers.*"
+		xmlns:artwork="org.friendlytalk.talk.artwork.*"
+		title="{this.resourceManager.getString('ft', 'Talk')}">
 	
 	<fx:Script>
 		<![CDATA[
+			import org.friendlytalk.core.presentation.renderers.BroadcastRenderer;
 			import org.friendlytalk.talk.TalkPM;
 			
 			[Bindable]
@@ -16,34 +20,39 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
+	<fx:Binding destination="this.model" source="{this.data as TalkPM}"/>
+	
 	<s:states>
-		<s:State name="portrait" />
-		<s:State name="landscape" />
+		<s:State name="portrait"/>
+		<s:State name="landscape"/>
 	</s:states>
 	
-	<s:DataGroup width="100%" height="100%" dataProvider="{this.model.broadcasters}">
+	<artwork:Background width="100%" height="100%" />
+	
+	<!--<s:List left="0" right="0" top="0" bottom="0" dataProvider="{this.model.broadcasters}"
+			itemRenderer="org.friendlytalk.core.presentation.renderers.BroadcastRenderer">
 		<s:layout.landscape>
-			<s:HorizontalLayout paddingLeft="20" paddingTop="20" paddingRight="20" paddingBottom="20" columnWidth="320" />
+			<s:HorizontalLayout columnWidth="320" paddingBottom="20" paddingLeft="20"
+								paddingRight="20" paddingTop="20" variableColumnWidth="false"
+								verticalAlign="justify"/>
 		</s:layout.landscape>
 		<s:layout.portrait>
-			<s:VerticalLayout paddingLeft="20" paddingTop="20" paddingRight="20" paddingBottom="20" rowHeight="240" />
+			<s:VerticalLayout horizontalAlign="justify" paddingBottom="20" paddingLeft="20"
+							  paddingRight="20" paddingTop="20" rowHeight="240"
+							  variableRowHeight="false"/>
 		</s:layout.portrait>
-		<s:itemRenderer>
-			<fx:Component>
-				<renderers:BroadcastRenderer>
-					<fx:Script>
-						<![CDATA[
-							import flash.filters.BitmapFilterQuality;
-						]]>
-					</fx:Script>
-					<!--
-					<renderers:filters>
-						<s:DropShadowFilter color="0x000000" distance="0" blurX="20" blurY="20" quality="{BitmapFilterQuality.HIGH}" />
-					</renderers:filters>
-					-->
-				</renderers:BroadcastRenderer>
-			</fx:Component>
-		</s:itemRenderer>
-	</s:DataGroup>
+	</s:List>-->
+	
+	<!--<s:DataGroup width="100%" height="100%" dataProvider="{this.model.broadcasters}"
+				 itemRenderer="{new ClassFactory(BroadcastRenderer)}">
+		<s:layout.landscape>
+			<s:HorizontalLayout columnWidth="320" paddingBottom="20" paddingLeft="20"
+								paddingRight="20" paddingTop="20"/>
+		</s:layout.landscape>
+		<s:layout.portrait>
+			<s:VerticalLayout paddingBottom="20" paddingLeft="20" paddingRight="20" paddingTop="20"
+							  rowHeight="240"/>
+		</s:layout.portrait>
+	</s:DataGroup>-->
 	
 </s:View>

@@ -4,9 +4,6 @@
 							xmlns:friendlytalk="org.friendlytalk.*"
 							firstView="org.friendlytalk.home.presentation.HomeView"
 							firstViewData="{this.context.homePM}">
-	<fx:Metadata>
-		[ResourceBundle("ft")]
-	</fx:Metadata>
 	
 	<fx:Script>
 		<![CDATA[
