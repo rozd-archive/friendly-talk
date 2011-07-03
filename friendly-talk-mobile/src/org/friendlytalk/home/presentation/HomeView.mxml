@@ -30,6 +30,8 @@
 			  label="{this.resourceManager.getString('ft', 'Join')}" click="this.model.connect();"
 			  horizontalCenter="0" verticalCenter="0"/>
 	
+	<s:Label text="{Capabilities.version}" bottom="0" />
+	
 	<s:Label includeIn="connecting" horizontalCenter="0"
 			 text="{this.resourceManager.getString('ft', 'Connecting')}" verticalCenter="0"/>
 </s:View>

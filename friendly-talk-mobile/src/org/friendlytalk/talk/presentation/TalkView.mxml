@@ -29,7 +29,7 @@
 	
 	<artwork:Background width="100%" height="100%" />
 	
-	<!--<s:List left="0" right="0" top="0" bottom="0" dataProvider="{this.model.broadcasters}"
+	<s:List width="100%" height="100%" dataProvider="{this.model.broadcasters}"
 			itemRenderer="org.friendlytalk.core.presentation.renderers.BroadcastRenderer">
 		<s:layout.landscape>
 			<s:HorizontalLayout columnWidth="320" paddingBottom="20" paddingLeft="20"
@@ -38,10 +38,10 @@
 		</s:layout.landscape>
 		<s:layout.portrait>
 			<s:VerticalLayout horizontalAlign="justify" paddingBottom="20" paddingLeft="20"
-							  paddingRight="20" paddingTop="20" rowHeight="240"
+							  paddingRight="20" paddingTop="20" rowHeight="240" 
 							  variableRowHeight="false"/>
 		</s:layout.portrait>
-	</s:List>-->
+	</s:List>
 	
 	<!--<s:DataGroup width="100%" height="100%" dataProvider="{this.model.broadcasters}"
 				 itemRenderer="{new ClassFactory(BroadcastRenderer)}">
