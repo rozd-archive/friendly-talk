@@ -1,5 +1,8 @@
 package org.friendlytalk.core.presentation.renderers
 {
+	import flash.media.Sound;
+	import flash.net.NetStream;
+	
 	import mx.core.IDataRenderer;
 	import mx.core.IFlexDisplayObject;
 	import mx.core.ILayoutElement;
@@ -16,10 +19,6 @@ package org.friendlytalk.core.presentation.renderers
 		public function BroadcastRenderer()
 		{
 			super();
-			
-			this.width = 200;
-			this.height = 100;
-				
 		}
 		
 		//----------------------------------------------------------------------
@@ -30,13 +29,13 @@ package org.friendlytalk.core.presentation.renderers
 		
 		private var videoDisplay:VideoDisplay;
 		
-		private var labelDisplay:Label;
-		
 		//----------------------------------------------------------------------
 		//
 		//	Properties: IItemRenderer
 		//
 		//----------------------------------------------------------------------
+		
+		private var dataChanged:Boolean = false;
 		
 		private var _data:Object;
 		
@@ -50,13 +49,11 @@ package org.friendlytalk.core.presentation.renderers
 			if (value == this._data)
 				return;
 			
-			if (value is Broadcaster)
-			{
-				if (this.videoDisplay)
-					this.videoDisplay.source = Broadcaster(value).stream;
-			}
-			
 			this._data = value;
+			
+			this.dataChanged = true;
+			
+			this.invalidateProperties();
 		}
 
 		public function get dragging():Boolean
@@ -134,12 +131,6 @@ package org.friendlytalk.core.presentation.renderers
 				this.videoDisplay = new VideoDisplay();
 				this.addChild(this.videoDisplay);
 			}
-			
-			if (!this.labelDisplay)
-			{
-				this.labelDisplay = new Label();
-				this.addChild(this.labelDisplay);
-			}
 		}
 		
 		//----------------------------------------------------------------------
@@ -148,16 +139,36 @@ package org.friendlytalk.core.presentation.renderers
 		//
 		//----------------------------------------------------------------------
 		
+		override protected function commitProperties():void
+		{
+			super.commitProperties();
+			
+			if (this.dataChanged)
+			{
+				if (this.data is Broadcaster)
+				{
+					var stream:NetStream = Broadcaster(this.data).stream;
+					
+					if (this.videoDisplay)
+						this.videoDisplay.source = stream;
+				
+					stream.play(Broadcaster(this.data).name);
+				}
+				
+				this.dataChanged = false;
+			}
+		}
+		
 		override protected function updateDisplayList(w:Number, h:Number):void
 		{
 			super.updateDisplayList(w, h);
-			trace(w, h, visible, includeInLayout, x, y);
 			
+//			trace(w, h);
+			
+			this.graphics.clear();
 			this.graphics.beginFill(0xFF0000);
 			this.graphics.drawRect(0, 0, w, h);
-			this.graphics.clear();
-			
-			this.labelDisplay.text = this.data.toString();
+			this.graphics.endFill();
 			
 			if (!this.videoDisplay)
 				return;
@@ -167,13 +178,11 @@ package org.friendlytalk.core.presentation.renderers
 			var paddingTop:uint		= this.getStyle("paddingTop");
 			var paddingBottom:uint	= this.getStyle("paddingBottom");
 			
-			var viewWidth:Number  = w  - paddingLeft - paddingRight;
+			var viewWidth:Number  = w - paddingLeft - paddingRight;
 			var viewHeight:Number = h - paddingTop  - paddingBottom;
 			
 			this.setElementPosition(this.videoDisplay, paddingLeft, paddingTop);
 			this.setElementSize(this.videoDisplay, viewWidth, viewHeight);
-			
-			
 		}
 		
 		//--------------------------------------------------------------------------

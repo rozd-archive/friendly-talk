@@ -4,11 +4,6 @@ package org.friendlytalk.core.application
 	import flash.events.Event;
 	import flash.events.NetStatusEvent;
 	import flash.media.Camera;
-	/*
-	import flash.media.H264Level;
-	import flash.media.H264Profile;
-	import flash.media.H264VideoStreamSettings;
-	*/
 	import flash.media.Microphone;
 	import flash.media.MicrophoneEnhancedOptions;
 	import flash.net.NetConnection;
@@ -19,6 +14,7 @@ package org.friendlytalk.core.application
 	import org.friendlytalk.core.domain.Broadcaster;
 	import org.friendlytalk.core.domain.Room;
 	import org.friendlytalk.core.infrastructure.Connector;
+	import org.friendlytalk.core.infrastructure.Publisher;
 	import org.friendlytalk.home.events.ConnectEvent;
 
 	public class FrontController
@@ -34,6 +30,8 @@ package org.friendlytalk.core.application
 		//----------------------------------------------------------------------
 		
 		public var connector:Connector;
+		
+		public var publisher:Publisher;
 		
 		//----------------------------------------------------------------------
 		//
@@ -70,62 +68,7 @@ package org.friendlytalk.core.application
 			var connection:NetConnection = this.connector.getNetConnection();
 			var stream:NetStream = this.connector.getBroadcastNetStream()
 			
-			if (!connection || !stream) return;
-			
-			var cam:Camera = Camera.getCamera();
-			
-			if (cam)
-			{
-				cam.setMode(320, 240, 24);
-				cam.setQuality(0, 50);
-				cam.setKeyFrameInterval(25);
-				
-				stream.attachCamera(cam);
-				
-//				code for Flash PLayer 11
-//				var settings:H264VideoStreamSettings = new H264VideoStreamSettings();
-//				settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_2);
-//				
-//				stream.videoStreamSettings = settings;
-			}
-			
-			var mic:Microphone = 
-				"getEnhancedMicrophone" in Microphone ? 
-				Microphone["getEnhancedMicrophone"]() as Microphone : 
-				Microphone.getMicrophone();
-			
-			if (mic)
-			{
-				if ("enhancedOptions" in mic)
-				{
-					try
-					{
-						var Type:Class = 
-							getDefinitionByName("flash.media::MicrophoneEnhancedOptions") as Class;
-						
-						var options:Object = new Type();
-						options["mode"] = "fullDuplex";
-						options["autoGain"] = true;
-						
-						mic["enhancedOptions"] = options;
-						
-					}
-					catch (error:Error)
-					{
-						
-					}
-					
-				}
-				else
-				{
-					mic.setUseEchoSuppression(true);
-				}
-				
-				
-				stream.attachAudio(mic);
-			}
-			
-			stream.publish(connection.nearID);
+			this.publisher.publish(connection, stream);
 		}
 		
 		private function subscribe(name:String):void
@@ -143,6 +86,7 @@ package org.friendlytalk.core.application
 			}
 			
 			var stream:NetStream = this.connector.getSubscribeNetStream();
+			stream.bufferTime = 0.0;
 			
 			var broadcaster:Broadcaster = new Broadcaster();
 			broadcaster.name = name;

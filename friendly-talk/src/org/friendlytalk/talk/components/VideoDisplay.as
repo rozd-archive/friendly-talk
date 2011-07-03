@@ -118,7 +118,8 @@ package org.friendlytalk.talk.components
 				
 				this.sourceChanged = false;
 			}
-			else if (w != this.oldWidth || h != this.oldHeight)
+			
+			if (w != this.oldWidth || h != this.oldHeight)
 			{
 				this.adjustVideo(w, h);
 			}

@@ -12,11 +12,21 @@
 	
 	<fx:Declarations>
 		
+		<!--Domain-->
+		
 		<domain:Room id="room"/>
 		
-		<application:FrontController id="controller" connector="{this.connector}" room="{this.room}"/>
+		<!--Application-->
+		
+		<application:FrontController id="controller" connector="{this.connector}" publisher="{this.publisher}" room="{this.room}"/>
 	
+		<!--Infrastructure-->
+		
 		<infrastructure:Connector id="connector"/>
+		
+		<infrastructure:Publisher id="publisher" />
+		
+		<!--Presentation-->
 		
 		<home:HomePM id="homePM" connect="this.controller.connect(event);" room="{this.room}"/>
 		
