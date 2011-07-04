@@ -25,6 +25,8 @@
 		]]>
 	</fx:Script>
 	
+	<fx:Style source="styles/common.css" />
+	
 	<fx:Declarations>
 		<friendlytalk:Context id="context"/>
 	</fx:Declarations>

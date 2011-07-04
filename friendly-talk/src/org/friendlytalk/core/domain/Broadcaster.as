@@ -10,11 +10,36 @@ package org.friendlytalk.core.domain
 		{
 			super();
 		}
+
+		//----------------------------------------------------------------------
+		//
+		//	Properties
+		//
+		//----------------------------------------------------------------------
+		
+		//-----------------------------------
+		//	Variables: Common
+		//-----------------------------------
 		
 		[Bindable]
 		public var name:String;
-
+		
+		//-----------------------------------
+		//	Variables: Flags
+		//-----------------------------------
+		
 		[Bindable]
+		public var audioEnabled:Boolean = true;
+		
+		[Bindable]
+		public var videoEnabled:Boolean = true;
+		
+		//-----------------------------------
+		//	Variables: Flags
+		//-----------------------------------
+		
+		[Bindable]
+		[Transient]
 		public var stream:NetStream;
 	}
 }

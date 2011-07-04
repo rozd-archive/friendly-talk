@@ -9,7 +9,7 @@ package org.friendlytalk.core.presentation.components
 	
 	import spark.core.SpriteVisualElement;
 	
-	[Style(name="horizontalAlign", inherit="no", type="String", enumeration="left,center,right")]
+	[Style(name="horizontalAlign", inherit="no", type="String", enumeration="center,left,right")]
 
 	[Style(name="verticalAlign", inherit="no", type="String", enumeration="top,middle,bottom")]
 	
@@ -84,7 +84,7 @@ package org.friendlytalk.core.presentation.components
 		//	aspectRatio
 		//-----------------------------------
 		
-		private var _scaleMode:String
+		private var _scaleMode:String = VideoDisplayScaleMode.LETTERBOX;
 
 		public function get scaleMode():String
 		{
@@ -118,7 +118,8 @@ package org.friendlytalk.core.presentation.components
 				
 				this.sourceChanged = false;
 			}
-			else if (w != this.oldWidth || h != this.oldHeight)
+			
+			if (w != this.oldWidth || h != this.oldHeight)
 			{
 				this.adjustVideo(w, h);
 			}
@@ -166,6 +167,8 @@ package org.friendlytalk.core.presentation.components
 		
 		private function adjustVideo(width:Number, height:Number):void
 		{
+//			if (!this.video) return;
+			
 			var wRatio:uint = 4;
 			var hRatio:uint = 3;
 			
@@ -178,6 +181,9 @@ package org.friendlytalk.core.presentation.components
 			
 			var horizontalAlign:String = getStyle("horizontalAlign");
 			var verticalAlign:String = getStyle("verticalAlign");
+			
+			horizontalAlign = null;
+			verticalAlign = null;
 			
 			var hAlign:Number;
 			if (horizontalAlign == "left")
@@ -205,8 +211,8 @@ package org.friendlytalk.core.presentation.components
 						
 						w = ratio * height;
 						h = height;
-						y = 0;
 						x = (width - w) * hAlign;
+						y = 0;
 					}
 					else
 					{
@@ -214,11 +220,16 @@ package org.friendlytalk.core.presentation.components
 						
 						w = width;
 						h = width / ratio;
-						y = (height - h) * vAlign;
 						x = 0;
+						y = (height - h) * vAlign;
 					}
 				}
 			}
+			
+			this.graphics.clear();
+			this.graphics.beginFill(0xFF0099);
+			this.graphics.drawRect(x, y, w, h);
+			this.graphics.endFill();
 			
 			this.video.x = x;
 			this.video.y = y;

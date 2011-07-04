@@ -1,0 +1,9 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace components "org.friendlytalk.talk.components.*";
+
+components|VideoDisplay
+{
+	horizontalAlign: center;
+	verticalAlign: middle;
+}
