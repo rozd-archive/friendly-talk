@@ -1,6 +1,7 @@
 package org.friendlytalk.core.presentation.components
 {
 	import flash.display.Sprite;
+	import flash.media.Camera;
 	import flash.media.Video;
 	import flash.net.NetStream;
 	
@@ -138,6 +139,7 @@ package org.friendlytalk.core.presentation.components
 		{
 			if (this.video)
 			{
+				this.video.attachCamera(null);
 				this.video.attachNetStream(null);
 				this.video.clear();
 			}
@@ -160,14 +162,18 @@ package org.friendlytalk.core.presentation.components
 					this.video = new Video();
 					this.addChild(this.video);
 				}
-					
-				this.video.attachNetStream(this.source as NetStream);
+				
+				if (this.source is NetStream)
+					this.video.attachNetStream(NetStream(this.source));
+				else if (this.source is Camera)
+					this.video.attachCamera(Camera(this.source));
+				
 			}
 		}
 		
 		private function adjustVideo(width:Number, height:Number):void
 		{
-//			if (!this.video) return;
+			if (!this.video) return;
 			
 			var wRatio:uint = 4;
 			var hRatio:uint = 3;

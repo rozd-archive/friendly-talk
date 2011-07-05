@@ -7,23 +7,11 @@ package org.friendlytalk.core.infrastructure
 	import flash.net.NetConnection;
 	import flash.net.NetStream;
 	import flash.system.Capabilities;
+	
+	import org.friendlytalk.utils.RuntimeUtil;
 
 	public class Publisher
 	{
-		private static function runtimeNewestThan(major:uint, minor:uint=0, build:uint=0):Boolean
-		{
-			var version:Array = Capabilities.version.match(/\d+/g);
-			
-			if (major > Number(version[0]) || 
-				minor > Number(version[1]) || 
-				build > Number(version[2]))
-			{
-				return false;
-			}
-			
-			return true;
-		}
-		
 		//----------------------------------------------------------------------
 		//
 		//	Constructor
@@ -74,7 +62,7 @@ package org.friendlytalk.core.infrastructure
 			
 			// get enhanced microphone
 			
-			if (runtimeNewestThan(10, 3))
+			if (RuntimeUtil.newerThan(10, 3))
 			{
 				if ("getEnhancedMicrophone" in Microphone)
 				{
@@ -82,14 +70,14 @@ package org.friendlytalk.core.infrastructure
 				}
 			}
 			
-			// get standard microphone
+			// get standard microphone, if enhanced audio fails to initialize
 			
 			if (!mic)
 			{
 				mic = Microphone.getMicrophone();
 			}
 			
-			// setup microphone
+			// setup microphone, if it specified
 			
 			if (mic)
 			{

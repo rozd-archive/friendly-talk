@@ -2,6 +2,7 @@
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="org.friendlytalk.core.infrastructure.Publisher"/>
+    <classEntry path="org.friendlytalk.utils.RuntimeUtil"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="styles/common.css" sourcePath="styles/common.css"/>
