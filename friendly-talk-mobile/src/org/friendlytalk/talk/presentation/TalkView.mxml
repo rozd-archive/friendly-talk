@@ -3,15 +3,45 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:renderers="org.friendlytalk.core.presentation.renderers.*"
 		xmlns:artwork="org.friendlytalk.talk.artwork.*"
-		title="{this.resourceManager.getString('ft', 'Talk')}">
+		title="{this.resourceManager.getString('ft', 'Talk')}"
+		viewDeactivate="viewDeactivateHandler(event)">
 	
 	<fx:Script>
 		<![CDATA[
 			import org.friendlytalk.core.presentation.renderers.BroadcastRenderer;
 			import org.friendlytalk.talk.TalkPM;
+			import org.friendlytalk.talk.presentation.popups.CameraPopup;
+			
+			import spark.events.ViewNavigatorEvent;
+			
+			private var cameraPopup:CameraPopup;
 			
 			[Bindable]
 			public var model:TalkPM;
+			
+			private function openCameraPopup():void
+			{
+				if (this.cameraPopup) return;
+				
+				this.cameraPopup = new CameraPopup();
+				this.cameraPopup.y = this.height * 0.6;
+				this.cameraPopup.width = this.width;
+				this.cameraPopup.height = this.height * 0.4;
+				this.cameraPopup.open(this);
+			}
+
+			private function closeCameraPopup():void
+			{
+				if (!this.cameraPopup) return;
+				
+				this.cameraPopup.close();
+				this.cameraPopup = null;
+			}
+			
+			protected function viewDeactivateHandler(event:ViewNavigatorEvent):void
+			{
+				this.closeCameraPopup();
+			}
 			
 		]]>
 	</fx:Script>
@@ -20,7 +50,9 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<fx:Binding destination="this.model" source="{this.data as TalkPM}"/>
+	<fx:Binding destination="this.model" source="this.data as TalkPM"/>
+	
+	<fx:Binding destination="this.cameraPopup.camera" source="this.model.camera"/>
 	
 	<s:states>
 		<s:State name="portrait"/>
@@ -42,5 +74,15 @@
 							  variableRowHeight="false"/>
 		</s:layout.portrait>
 	</s:List>
+	
+	<s:actionContent>
+		<s:Button label="Back" click="this.navigator.popView()" />
+	</s:actionContent>
+	
+	<s:viewMenuItems>
+		<s:ViewMenuItem label="Mic" />
+		<s:ViewMenuItem label="Cam" click="this.openCameraPopup()" />
+		<s:ViewMenuItem label="Fav" />
+	</s:viewMenuItems>
 	
 </s:View>

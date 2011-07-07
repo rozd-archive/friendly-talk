@@ -24,6 +24,15 @@ package org.friendlytalk.core.infrastructure
 		
 		//----------------------------------------------------------------------
 		//
+		//	Properties
+		//
+		//----------------------------------------------------------------------
+		
+		[Bindable]
+		public var camera:Camera;
+		
+		//----------------------------------------------------------------------
+		//
 		//	Methods
 		//
 		//----------------------------------------------------------------------
@@ -41,15 +50,16 @@ package org.friendlytalk.core.infrastructure
 		{
 			if (!connection || !stream) return false;
 			
-			var cam:Camera = Camera.getCamera();
+			if (!this.camera)
+				this.camera = Camera.getCamera();
 			
-			if (cam)
+			if (this.camera)
 			{
-				cam.setMode(320, 240, 24);
-				cam.setQuality(0, 50);
-				cam.setKeyFrameInterval(25);
+				this.camera.setMode(320, 240, 24);
+				this.camera.setQuality(0, 50);
+				this.camera.setKeyFrameInterval(25);
 				
-				stream.attachCamera(cam);
+				stream.attachCamera(this.camera);
 				
 //				code for Flash PLayer 11
 //				var settings:H264VideoStreamSettings = new H264VideoStreamSettings();

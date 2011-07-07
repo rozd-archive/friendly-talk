@@ -2,6 +2,7 @@ package org.friendlytalk.talk
 {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
+	import flash.media.Camera;
 	
 	import mx.collections.IList;
 	
@@ -26,5 +27,15 @@ package org.friendlytalk.talk
 		
 		[Bindable]
 		public var broadcasters:IList;
+
+		[Bindable]
+		public var camera:Camera;
+		
+		//----------------------------------------------------------------------
+		//
+		//	Methods
+		//
+		//----------------------------------------------------------------------
+		
 	}
 }

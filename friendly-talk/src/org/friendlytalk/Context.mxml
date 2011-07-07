@@ -30,7 +30,7 @@
 		
 		<home:HomePM id="homePM" connect="this.controller.connect(event);" room="{this.room}"/>
 		
-		<talk:TalkPM id="talkPM" broadcasters="{this.room.broadcasters}"/>
+		<talk:TalkPM id="talkPM" broadcasters="{this.room.broadcasters}" camera="{this.publisher.camera}"/>
 		
 	</fx:Declarations>
 	

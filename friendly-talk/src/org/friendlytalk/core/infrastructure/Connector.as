@@ -26,6 +26,8 @@ package org.friendlytalk.core.infrastructure
 		
 		private static const SERVER_URL:String = "rtmfp://p2p.rtmfp.net/4eac03fdddf60bb5e7df9cb3-c21addd5ccab/";
 
+		private static const DEFAULT_SPACE:String = "public";
+		
 		private static const DEFAULT_ROOM:String = "public-room";
 		
 		//----------------------------------------------------------------------
