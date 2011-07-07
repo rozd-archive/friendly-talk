@@ -75,10 +75,18 @@
 		</s:layout.portrait>
 	</s:List>
 	
-	<s:actionContent>
+	<s:navigationContent>
 		<s:Button label="Home" click="this.navigator.popView();" />
-		<s:Button label="Back" click="this.navigator.popView()" />
+	</s:navigationContent>
+	
+	<s:actionContent>
+		<s:Button label="Fav" />
+		<s:Button label="Set" />
 	</s:actionContent>
+	
+	<s:titleContent>
+		
+	</s:titleContent>
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem label="Mic" />

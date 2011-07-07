@@ -31,11 +31,26 @@ package org.friendlytalk.talk
 		[Bindable]
 		public var camera:Camera;
 		
+		[Bindable]
+		public var camMuted:Boolean;
+
+		[Bindable]
+		public var micMuted:Boolean;
+		
 		//----------------------------------------------------------------------
 		//
 		//	Methods
 		//
 		//----------------------------------------------------------------------
 		
+		public function toggleMic():void
+		{
+			this.micMuted = !this.micMuted;
+		}
+		
+		public function toggleCam():void
+		{
+			this.camMuted = !this.camMuted;
+		}
 	}
 }

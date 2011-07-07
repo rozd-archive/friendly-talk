@@ -3,7 +3,8 @@
 							xmlns:s="library://ns.adobe.com/flex/spark"
 							xmlns:friendlytalk="org.friendlytalk.*"
 							firstView="org.friendlytalk.home.presentation.HomeView"
-							firstViewData="{this.context.homePM}">
+							firstViewData="{this.context.homePM}"
+							viewMenuOpen="true">
 	
 	<fx:Script>
 		<![CDATA[
