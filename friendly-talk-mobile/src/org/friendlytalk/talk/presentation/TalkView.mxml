@@ -76,13 +76,13 @@
 	</s:List>
 	
 	<s:actionContent>
+		<s:Button label="Home" click="this.navigator.popView();" />
 		<s:Button label="Back" click="this.navigator.popView()" />
 	</s:actionContent>
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem label="Mic" />
-		<s:ViewMenuItem label="Cam" click="this.openCameraPopup()" />
-		<s:ViewMenuItem label="Fav" />
+		<s:ViewMenuItem label="Cam" />
 	</s:viewMenuItems>
 	
 </s:View>
