@@ -12,6 +12,7 @@ package org.friendlytalk.core.application
 	import flash.utils.getDefinitionByName;
 	
 	import org.friendlytalk.core.domain.Broadcaster;
+	import org.friendlytalk.core.domain.Media;
 	import org.friendlytalk.core.domain.Room;
 	import org.friendlytalk.core.infrastructure.Connector;
 	import org.friendlytalk.core.infrastructure.Publisher;
@@ -39,8 +40,9 @@ package org.friendlytalk.core.application
 		//
 		//----------------------------------------------------------------------
 		
-		[Bindable]
 		public var room:Room;
+		
+		public var media:Media;
 		
 		//----------------------------------------------------------------------
 		//
@@ -66,9 +68,38 @@ package org.friendlytalk.core.application
 			if (!this.room || !this.room.connected) return;
 			
 			var connection:NetConnection = this.connector.getNetConnection();
-			var stream:NetStream = this.connector.getBroadcastNetStream()
+			var stream:NetStream = this.connector.getBroadcastNetStream();
 			
-			this.publisher.publish(connection, stream);
+			this.publisher.publish(connection, stream, !this.media.videoMuted, !this.media.audioMuted);
+		}
+		
+		public function toggleCamera():void
+		{
+			this.media.videoMuted = !this.media.videoMuted;
+			
+			var stream:NetStream = this.connector.getBroadcastNetStream();
+			
+			if (this.media.videoMuted) 
+				this.publisher.muteCamera(stream);
+			else
+				this.publisher.unmuteCamera(stream);
+		}
+
+		public function toggleMicrophone():void
+		{
+			this.media.audioMuted = !this.media.audioMuted;
+			
+			var stream:NetStream = this.connector.getBroadcastNetStream();
+			
+			if (this.media.audioMuted) 
+				this.publisher.muteMicrophone(stream);
+			else
+				this.publisher.unmuteMicrophone(stream);
+		}
+
+		public function toggleFavorite():void
+		{
+			this.room.favorite = !this.room.favorite;
 		}
 		
 		private function subscribe(name:String):void

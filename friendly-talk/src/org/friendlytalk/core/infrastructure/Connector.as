@@ -4,6 +4,7 @@ package org.friendlytalk.core.infrastructure
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
+	import flash.events.NetDataEvent;
 	import flash.events.NetStatusEvent;
 	import flash.net.GroupSpecifier;
 	import flash.net.NetConnection;
@@ -170,6 +171,7 @@ package org.friendlytalk.core.infrastructure
 		{
 			this.stream = new NetStream(this.connection, this.specifire.groupspecWithAuthorizations());
 			this.stream.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+			this.stream.addEventListener(NetDataEvent.MEDIA_TYPE_DATA, mediaTypeDataHandler);
 		}
 		
 		private function onStreamConnected():void
@@ -244,6 +246,11 @@ package org.friendlytalk.core.infrastructure
 			{
 				this.dispatchEvent(event.clone());
 			}
+		}
+		
+		protected function mediaTypeDataHandler(event:NetDataEvent):void
+		{
+			trace(event.info);
 		}
 	}
 }

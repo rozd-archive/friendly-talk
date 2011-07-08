@@ -19,6 +19,14 @@
 			[Bindable]
 			public var model:TalkPM;
 			
+			private function toggleCameraPopup():void
+			{
+				if (!this.cameraPopup)
+					this.openCameraPopup();
+				else
+					this.closeCameraPopup();
+			}
+			
 			private function openCameraPopup():void
 			{
 				if (this.cameraPopup) return;
@@ -27,6 +35,7 @@
 				this.cameraPopup.y = this.height * 0.6;
 				this.cameraPopup.width = this.width;
 				this.cameraPopup.height = this.height * 0.4;
+				this.cameraPopup.model = this.model;
 				this.cameraPopup.open(this);
 			}
 
@@ -52,7 +61,7 @@
 	
 	<fx:Binding destination="this.model" source="this.data as TalkPM"/>
 	
-	<fx:Binding destination="this.cameraPopup.camera" source="this.model.camera"/>
+	<fx:Binding destination="this.cameraPopup.model" source="this.model"/>
 	
 	<s:states>
 		<s:State name="portrait"/>
@@ -80,8 +89,9 @@
 	</s:navigationContent>
 	
 	<s:actionContent>
-		<s:Button label="Fav" />
-		<s:Button label="Set" />
+		<s:Button label="A" includeInLayout="{!this.model.room.favorite}" visible="{!this.model.room.favorite}" click="this.model.toggleFav();" />
+		<s:Button label="R" includeInLayout="{this.model.room.favorite}" visible="{this.model.room.favorite}" click="this.model.toggleFav();" />
+		<s:Button label="S" click="this.toggleCameraPopup();" />
 	</s:actionContent>
 	
 	<s:titleContent>
@@ -89,8 +99,8 @@
 	</s:titleContent>
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem label="Mic" />
-		<s:ViewMenuItem label="Cam" />
+		<s:ViewMenuItem label="Mic" click="this.model.toggleMic();" />
+		<s:ViewMenuItem label="Cam" click="this.model.toggleCam();" />
 	</s:viewMenuItems>
 	
 </s:View>

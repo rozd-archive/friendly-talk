@@ -15,22 +15,29 @@
 		<!--Domain-->
 		
 		<domain:Room id="room"/>
+
+		<domain:Media id="media" />
 		
 		<!--Application-->
 		
-		<application:FrontController id="controller" connector="{this.connector}" publisher="{this.publisher}" room="{this.room}"/>
+		<application:FrontController id="controller" connector="{this.connector}"
+									 publisher="{this.publisher}" room="{this.room}" media="{this.media}"/>
 	
 		<!--Infrastructure-->
 		
 		<infrastructure:Connector id="connector"/>
 		
-		<infrastructure:Publisher id="publisher" />
+		<infrastructure:Publisher id="publisher"/>
 		
 		<!--Presentation-->
 		
 		<home:HomePM id="homePM" connect="this.controller.connect(event);" room="{this.room}"/>
 		
-		<talk:TalkPM id="talkPM" broadcasters="{this.room.broadcasters}" camera="{this.publisher.camera}"/>
+		<talk:TalkPM id="talkPM" broadcasters="{this.room.broadcasters}"
+					 room="{this.room}" media="{this.media}"
+					 toggleCamera="this.controller.toggleCamera()"
+					 toggleFavorite="this.controller.toggleFavorite()"
+					 toggleMicrophone="this.controller.toggleMicrophone()"/>
 		
 	</fx:Declarations>
 	

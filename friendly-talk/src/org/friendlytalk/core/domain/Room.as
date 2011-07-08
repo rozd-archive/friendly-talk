@@ -22,5 +22,7 @@ package org.friendlytalk.core.domain
 		[Bindable]
 		public var broadcasters:IList = new ArrayList();
 		
+		[Bindable]
+		public var favorite:Boolean;
 	}
 }

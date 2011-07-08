@@ -3,6 +3,10 @@
   <includeClasses>
     <classEntry path="org.friendlytalk.core.infrastructure.Publisher"/>
     <classEntry path="org.friendlytalk.utils.RuntimeUtil"/>
+    <classEntry path="org.friendlytalk.talk.events.ToggleMicrophoneEvent"/>
+    <classEntry path="org.friendlytalk.talk.events.ToggleFavoriteEvent"/>
+    <classEntry path="org.friendlytalk.core.domain.Media"/>
+    <classEntry path="org.friendlytalk.media.presentation.MediaPM"/>
   </includeClasses>
   <includeResources>
     <resourceEntry destPath="styles/common.css" sourcePath="styles/common.css"/>
