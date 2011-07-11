@@ -10,7 +10,7 @@
 		<![CDATA[
 			import org.friendlytalk.core.presentation.renderers.BroadcastRenderer;
 			import org.friendlytalk.talk.TalkPM;
-			import org.friendlytalk.talk.presentation.popups.SettingsPopup;
+			import org.friendlytalk.settings.SettingsPopup;
 			
 			import spark.events.ViewNavigatorEvent;
 			
