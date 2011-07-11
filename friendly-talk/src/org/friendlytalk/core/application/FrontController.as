@@ -70,6 +70,12 @@ package org.friendlytalk.core.application
 			var connection:NetConnection = this.connector.getNetConnection();
 			var stream:NetStream = this.connector.getBroadcastNetStream();
 			
+			if (this.media)
+			{
+				this.media.camera = this.publisher.getDefaultCamera();
+				this.media.microphone = this.publisher.getDefaultMicrophone();
+			}
+			
 			this.publisher.publish(connection, stream, !this.media.videoMuted, !this.media.audioMuted);
 		}
 		
@@ -101,6 +107,34 @@ package org.friendlytalk.core.application
 		{
 			this.room.favorite = !this.room.favorite;
 		}
+		
+		public function setCamera(value:Camera):void
+		{
+			if (!this.media) return;
+			
+			this.media.camera = value;
+			
+			var stream:NetStream = this.connector.getBroadcastNetStream();
+			
+			this.publisher.changeCamera(stream);
+		}
+
+		public function setMicrophone(value:Microphone):void
+		{
+			if (!this.media) return;
+			
+			this.media.microphone = value;
+			
+			var stream:NetStream = this.connector.getBroadcastNetStream();
+			
+			this.publisher.changeMicrophone(stream);
+		}
+		
+		//----------------------------------------------------------------------
+		//
+		//	Methods
+		//
+		//----------------------------------------------------------------------
 		
 		private function subscribe(name:String):void
 		{

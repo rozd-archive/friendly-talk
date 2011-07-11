@@ -10,6 +10,7 @@ package org.friendlytalk.core.infrastructure
 	import flash.net.NetStream;
 	import flash.system.Capabilities;
 	
+	import org.friendlytalk.core.domain.Media;
 	import org.friendlytalk.utils.RuntimeUtil;
 
 	public class Publisher extends EventDispatcher 
@@ -38,11 +39,7 @@ package org.friendlytalk.core.infrastructure
 		//
 		//----------------------------------------------------------------------
 		
-		[Bindable]
-		public var camera:Camera;
-
-		[Bindable]
-		public var microphone:Microphone;
+		public var media:Media;
 		
 		//----------------------------------------------------------------------
 		//
@@ -63,57 +60,14 @@ package org.friendlytalk.core.infrastructure
 		{
 			if (!connection || !stream) return false;
 			
-			if (!this.camera)
-				this.camera = Camera.getCamera();
-			
-			if (this.camera)
+			if (!this.media.videoMuted)
 			{
-				this.camera.setMode(320, 240, 24);
-				this.camera.setQuality(0, 50);
-				this.camera.setKeyFrameInterval(25);
-				
-				if (cam)
-					stream.attachCamera(this.camera);
-				
-//				code for Flash PLayer 11
-//				var settings:H264VideoStreamSettings = new H264VideoStreamSettings();
-//				settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_2);
-//				
-//				stream.videoStreamSettings = settings;
+				stream.attachCamera(this.media.camera);
 			}
 			
-			// get enhanced microphone
-			
-			if (RuntimeUtil.newerThan(10, 3))
+			if (!this.media.audioMuted)
 			{
-				if ("getEnhancedMicrophone" in Microphone)
-				{
-					this.microphone = Microphone.getEnhancedMicrophone();
-				}
-			}
-			
-			// get standard microphone, if enhanced audio fails to initialize
-			
-			if (!this.microphone)
-			{
-				this.microphone = Microphone.getMicrophone();
-			}
-			
-			// setup microphone, if it specified
-			
-			if (this.microphone)
-			{
-				// http://www.adobe.com/devnet/flashplayer/articles/acoustic-echo-cancellation.html
-				
-				this.microphone.codec = SoundCodec.SPEEX;
-				this.microphone.framesPerPacket = 1;
-				this.microphone.setSilenceLevel(0, 2000);
-				this.microphone.gain = 50.0;
-
-				this.microphone.setUseEchoSuppression(true);
-
-				if (mic)
-					stream.attachAudio(this.microphone);
+				stream.attachAudio(this.media.microphone);
 			}
 			
 			stream.publish(connection.nearID);
@@ -121,6 +75,13 @@ package org.friendlytalk.core.infrastructure
 			return true;
 		}
 	
+		public function changeCamera(stream:NetStream):void
+		{
+			if (!stream) return;
+			
+			stream.attachCamera(this.media.camera);
+		}
+		
 		public function muteCamera(stream:NetStream):void
 		{
 			if (!stream) return;
@@ -132,9 +93,15 @@ package org.friendlytalk.core.infrastructure
 		{
 			if (!stream) return;
 			
-			stream.attachCamera(this.camera);
+			stream.attachCamera(this.media.camera);
 		}
 
+		public function changeMicrophone(stream:NetStream):void
+		{
+			if (!stream) return;
+			
+			stream.attachAudio(this.media.microphone);
+		}
 		public function muteMicrophone(stream:NetStream):void
 		{
 			if (!stream) return;
@@ -146,7 +113,65 @@ package org.friendlytalk.core.infrastructure
 		{
 			if (!stream) return;
 			
-			stream.attachAudio(this.microphone);
+			stream.attachAudio(this.media.microphone);
+		}
+		
+		public function getDefaultCamera():Camera
+		{
+			var cam:Camera = Camera.getCamera();
+			
+			if (cam)
+			{
+				cam.setMode(320, 240, 24);
+				cam.setQuality(0, 50);
+				cam.setKeyFrameInterval(25);
+				
+//				code for Flash PLayer 11
+//				var settings:H264VideoStreamSettings = new H264VideoStreamSettings();
+//				settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_2);
+//				
+//				stream.videoStreamSettings = settings;
+			}
+			
+			return cam;
+		}
+
+		public function getDefaultMicrophone():Microphone
+		{
+			var mic:Microphone; 
+			
+			// get enhanced microphone
+			
+			if (RuntimeUtil.newerThan(10, 3))
+			{
+				if ("getEnhancedMicrophone" in Microphone)
+				{
+					mic = Microphone.getEnhancedMicrophone();
+				}
+			}
+			
+			// get standard microphone, if enhanced audio fails to initialize
+			
+			if (!mic)
+			{
+				mic = Microphone.getMicrophone();
+			}
+			
+			// setup microphone, if it specified
+			
+			if (mic)
+			{
+				// http://www.adobe.com/devnet/flashplayer/articles/acoustic-echo-cancellation.html
+				
+				mic.codec = SoundCodec.SPEEX;
+				mic.framesPerPacket = 1;
+				mic.setSilenceLevel(0, 2000);
+				mic.gain = 50.0;
+				
+				mic.setUseEchoSuppression(true);
+			}
+			
+			return mic;
 		}
 	}
 }

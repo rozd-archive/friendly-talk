@@ -32,6 +32,6 @@
 		<friendlytalk:Context id="context"/>
 	</fx:Declarations>
 	
-	<fx:Binding source="{this.context.room.connected}" destination="this.connected" />
+	<fx:Binding source="this.context.room.connected" destination="this.connected" />
 	
 </s:ViewNavigatorApplication>

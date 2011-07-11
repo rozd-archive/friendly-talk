@@ -4,7 +4,7 @@
 		   xmlns:home="org.friendlytalk.home.*"
 		   xmlns:talk="org.friendlytalk.talk.*"
 		   xmlns:domain="org.friendlytalk.core.domain.*"
-		   xmlns:infrastructure="org.friendlytalk.core.infrastructure.*">
+		   xmlns:infrastructure="org.friendlytalk.core.infrastructure.*" xmlns:presentation="org.friendlytalk.settings.presentation.*">
 	
 	<fx:Metadata>
 		[ResourceBundle("ft")]
@@ -38,6 +38,10 @@
 					 toggleCamera="this.controller.toggleCamera()"
 					 toggleFavorite="this.controller.toggleFavorite()"
 					 toggleMicrophone="this.controller.toggleMicrophone()"/>
+		
+		<presentation:SettingsPM id="settings" media="{this.media}"
+								 changeCamera="this.controller.setCamera(event.camera);"
+								 changeMicrophone="this.controller.setMicrophone(event.microphone);" />
 		
 	</fx:Declarations>
 	
