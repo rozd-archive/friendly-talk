@@ -27,10 +27,10 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:VGroup left="0" top="0" right="0" bottom="0">
-		<s:List width="100%" dataProvider="{this.model.cameras}" />
-		<components:VideoDisplay width="100%" height="240" source="{this.model.camera}" />
-		<s:List width="100%" dataProvider="{this.model.microphones}" />
+	<s:VGroup left="0" top="0" right="0" bottom="0" horizontalAlign="center">
+		<s:ButtonBar width="100%" dataProvider="{this.model.cameras}" selectedIndex="{this.model.media.camera}"  />
+		<components:VideoDisplay width="100%" height="100%" source="{this.model.camera}" />
+		<s:ButtonBar width="100%" dataProvider="{this.model.microphones}" selectedItem="{this.model.media.microphone}" />
 	</s:VGroup>
 	
 </s:SkinnablePopUpContainer>

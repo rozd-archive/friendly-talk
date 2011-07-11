@@ -16,8 +16,8 @@
 	<s:transitions>
 		<s:Transition fromState="closed" toState="normal" autoReverse="true">
 			<s:Parallel>
-				<s:Fade target="{chrome}" duration="1500" />
-				<s:Move target="{chrome}" duration="1500" yFrom="100" yTo="0" />
+				<s:Fade target="{chrome}" duration="500" />
+				<!--<s:Move target="{chrome}" duration="1000" yFrom="-200" yTo="0" />-->
 			</s:Parallel>
 		</s:Transition>
 		

@@ -32,7 +32,8 @@
 				if (this.cameraPopup) return;
 				
 				this.cameraPopup = new CameraPopup();
-				this.cameraPopup.y = this.height * 0.6;
+//				this.cameraPopup.y = this.height * 0.6;
+				this.cameraPopup.y = this.navigator.actionBar.height;
 				this.cameraPopup.width = this.width;
 				this.cameraPopup.height = this.height * 0.4;
 				this.cameraPopup.model = this.model;
