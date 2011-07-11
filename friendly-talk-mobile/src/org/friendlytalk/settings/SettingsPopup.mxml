@@ -6,10 +6,10 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import org.friendlytalk.settings.presentation.SettingsPM;
+			import org.friendlytalk.tune.presentation.TunePM;
 			
 			[Bindable]
-			public var model:SettingsPM;
+			public var model:TunePM;
 			
 		]]>
 	</fx:Script>

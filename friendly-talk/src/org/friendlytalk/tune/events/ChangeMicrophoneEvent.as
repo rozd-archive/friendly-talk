@@ -1,4 +1,4 @@
-package org.friendlytalk.settings.events
+package org.friendlytalk.tune.events
 {
 	import flash.events.Event;
 	import flash.media.Microphone;

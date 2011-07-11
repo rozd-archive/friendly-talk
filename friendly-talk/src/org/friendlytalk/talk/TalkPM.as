@@ -14,6 +14,7 @@ package org.friendlytalk.talk
 	import org.friendlytalk.talk.events.ToggleCameraEvent;
 	import org.friendlytalk.talk.events.ToggleFavoriteEvent;
 	import org.friendlytalk.talk.events.ToggleMicrophoneEvent;
+	import org.friendlytalk.tune.presentation.TunePM;
 	
 	/**
 	 * @eventType org.friendlytalk.talk.events.ToggleMicrophoneEvent.TOGGLE_MICROPHONE
@@ -66,29 +67,7 @@ package org.friendlytalk.talk
 		public var room:Room;
 
 		[Bindable]
-		public var media:Media;
-		
-		[Bindable("cameraChanged")]
-		public function get camera():Camera
-		{
-			return this.newCamera ? this.newCamera : this.media.camera;
-		}
-		
-		public function get cameras():IList
-		{
-			if (!Camera.isSupported)
-				return null;
-			
-			return new ArrayList(Camera.names);
-		}
-
-		public function get microphones():IList
-		{
-			if (!Microphone.isSupported)
-				return null;
-			
-			return new ArrayList(Microphone.names);
-		}
+		public var tunePM:TunePM;
 		
 		//----------------------------------------------------------------------
 		//

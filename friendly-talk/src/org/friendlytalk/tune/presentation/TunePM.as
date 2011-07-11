@@ -1,4 +1,4 @@
-package org.friendlytalk.settings.presentation
+package org.friendlytalk.tune.presentation
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -10,22 +10,22 @@ package org.friendlytalk.settings.presentation
 	import mx.collections.IList;
 	
 	import org.friendlytalk.core.domain.Media;
-	import org.friendlytalk.settings.events.ChangeCameraEvent;
-	import org.friendlytalk.settings.events.ChangeMicrophoneEvent;
+	import org.friendlytalk.tune.events.ChangeCameraEvent;
+	import org.friendlytalk.tune.events.ChangeMicrophoneEvent;
 	
 	/**
 	 * @eventType org.friendlytalk.settings.events.ChangeCameraEvent.CHANGE_CAMERA
 	 */
-	[Event(name="changeCamera", type="org.friendlytalk.settings.events.ChangeCameraEvent")]
+	[Event(name="changeCamera", type="org.friendlytalk.tune.events.ChangeCameraEvent")]
 	
 	/**
 	 * @eventType org.friendlytalk.settings.events.ChangeMicrophoneEvent.CHANGE_MICROPHONE
 	 */
-	[Event(name="changeMicrophone", type="org.friendlytalk.settings.events.ChangeMicrophoneEvent")]
+	[Event(name="changeMicrophone", type="org.friendlytalk.tune.events.ChangeMicrophoneEvent")]
 	
-	public class SettingsPM extends EventDispatcher
+	public class TunePM extends EventDispatcher
 	{
-		public function SettingsPM(target:IEventDispatcher=null)
+		public function TunePM(target:IEventDispatcher=null)
 		{
 			super(target);
 		}
