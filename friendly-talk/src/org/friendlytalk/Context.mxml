@@ -4,7 +4,8 @@
 		   xmlns:home="org.friendlytalk.home.*"
 		   xmlns:talk="org.friendlytalk.talk.*"
 		   xmlns:domain="org.friendlytalk.core.domain.*"
-		   xmlns:infrastructure="org.friendlytalk.core.infrastructure.*">
+		   xmlns:infrastructure="org.friendlytalk.core.infrastructure.*"
+		   xmlns:tune="org.friendlytalk.tune.presentation.*">
 	
 	<fx:Metadata>
 		[ResourceBundle("ft")]
@@ -16,12 +17,13 @@
 		
 		<domain:Room id="room"/>
 
-		<domain:Media id="media" />
+		<domain:Media id="media"/>
 		
 		<!--Application-->
 		
 		<application:FrontController id="controller" connector="{this.connector}"
-									 publisher="{this.publisher}" room="{this.room}" media="{this.media}"/>
+									 media="{this.media}" publisher="{this.publisher}"
+									 room="{this.room}"/>
 	
 		<!--Infrastructure-->
 		
@@ -33,11 +35,14 @@
 		
 		<home:HomePM id="homePM" connect="this.controller.connect(event);" room="{this.room}"/>
 		
-		<talk:TalkPM id="talkPM" broadcasters="{this.room.broadcasters}"
-					 room="{this.room}" media="{this.media}"
+		<talk:TalkPM id="talkPM" broadcasters="{this.room.broadcasters}" room="{this.room}"
 					 toggleCamera="this.controller.toggleCamera()"
 					 toggleFavorite="this.controller.toggleFavorite()"
-					 toggleMicrophone="this.controller.toggleMicrophone()"/>
+					 toggleMicrophone="this.controller.toggleMicrophone()" tunePM="{this.tune}"/>
+		
+		<tune:TunePM id="tune" changeCamera="this.controller.setCamera(event.camera);"
+					 changeMicrophone="this.controller.setMicrophone(event.microphone);"
+					 media="{this.media}"/>
 		
 	</fx:Declarations>
 	
